@@ -1,0 +1,20 @@
+
+gantt
+    title Proyecto GlucoForecast
+    todayMarker off
+    dateFormat YYYY-MM-DD
+    tickInterval 1week
+    section Módulo de registro de datos y cálculos estimativos
+    Sprints de análisis, desarrolo, pruebas unitarias       :done, a1, 2024-05-01, 30d
+    Pruebas de homologación                                    :done, a2, after a1, 10d
+    Release 1.0 :milestone , a3, after a2, 1d
+
+    section Módulo de gestión de usuarios y roles
+    Sprints de análisis, desarrolo, pruebas unitarias          :done, b1, after a1, 15d
+    Pruebas de homologación                                              :done, b2, after b1, 5d
+    Release 1.1       :milestone, b3, after b2, 1d
+    
+    section Módulo de generación de informes
+    Sprints de análisis, desarrolo, pruebas unitariass        :done, c1, after b1, 20d
+    Pruebas de homologación                                             :done, c2, after c1, 5d
+    Release 1.2 :milestone, c3, after c2, 1d
