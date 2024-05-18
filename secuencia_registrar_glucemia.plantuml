@@ -1,0 +1,27 @@
+@startuml
+actor Paciente as p
+boundary "Interfaz de Registro de datos" as fg
+control "Controlador de Mediciones" as cg
+entity "Entidad Medición" as rg
+
+p -> fg : Ingresa datos
+fg -> fg : Solicita confirmación de entrada de datos
+fg -> cg : Envía datos de medición
+cg -> cg : Verifica rango de glucemia
+
+alt Datos válidos
+    cg -> rg : Guarda medición
+    rg --> cg : Confirmación de almacenamiento
+    cg --> fg : Muestra mensaje de éxito
+else Datos inválidos o fuera de rango
+    cg --> fg : Muestra mensaje de error
+    loop Datos incorrectos
+        p -> fg : Corrige y reingresa datos de glucemia
+        fg -> cg : Reenvía datos corregidos
+        cg -> cg : Verifica rango de glucemia
+    end
+    cg -> rg : Guarda medición
+    rg --> cg : Confirmación de almacenamiento
+    cg --> fg : Muestra mensaje de éxito
+end
+@enduml
