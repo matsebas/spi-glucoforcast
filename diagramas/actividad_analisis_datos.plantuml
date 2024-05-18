@@ -1,0 +1,28 @@
+@startuml
+|Paciente / Cuidador|
+start
+:Seleccionar opción de 
+análisis de datos;
+|Sistema|
+:Mostrar tiempo en rango;
+:Mostrar Hb1Ac basado en 
+las mediciones;
+:Mostrar conteo de hiper/hipo-glucemias;
+|Paciente / Cuidador|
+:Visualizar resultados del 
+análisis y Hb1Ac;
+stop
+|Sistema|
+:Identificar desviaciones 
+y áreas de mejora;
+|Médico|
+if (¿Ajustes necesarios?) then (sí)
+  :Realizar ajustes en el 
+plan de tratamiento;
+else (no)
+  :Continuar;
+endif
+|Sistema|
+:Comunicar resultados del análisis;
+stop
+@enduml

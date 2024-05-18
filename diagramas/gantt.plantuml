@@ -1,0 +1,12 @@
+@startgantt
+projectscale daily
+Project starts the 2nd of may 2024
+
+[Módulo de Registro y Seguimiento de datos] requires 35 days
+[Módulo de Gestión de Usuarios y Roles] requires 20 days
+[Módulo de Informes] requires 15 days
+
+[Módulo de Gestión de Usuarios y Roles] ends D+40
+[Módulo de Informes] ends D+45
+
+@endgantt

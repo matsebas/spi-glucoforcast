@@ -1,0 +1,62 @@
+@startuml
+object Medicion {
+  fecha_hora
+  glucemia
+  carbohidratos
+  insulina_comida
+  insulina_correccion
+  descripcion_comida
+  insulina_lenta
+  notas
+  tags
+}
+
+object Paciente {
+  nombre
+  apellido
+  edad
+  peso_corporal
+  fecha_diagnostico
+}
+
+object Usuario {
+  usuario
+  clave
+  email
+  telefono
+}
+
+object Medico {
+  nombre
+  apellido
+  institucion
+  email
+  telefono
+}
+
+object Cuidador {
+  nombre
+  apellido
+}
+
+object EstimacionGlicosilada {
+  valor_calculado
+  escala_deseable
+}
+
+object Reporte {
+  tiempo_en_rango
+  recuento_alto_bajo
+  dosis_diaria_insulina
+}
+
+Paciente "1" --o "0..*" Medicion : registra
+Paciente "1" --o "0..*" Reporte : tiene
+Paciente "1" --o "0..*" EstimacionGlicosilada : tiene
+Usuario "1" *-- "0..*" Paciente : puede ser
+Usuario "1" *-- "0..*" Cuidador : puede ser
+Usuario "1" *-- "0..*" Medico : puede ser
+Cuidador "1..*" .. "1..*" Paciente : se relaciona con
+Medico "1" .. "1..*" Paciente : atiende a
+EstimacionGlicosilada "1" *-- "1..*" Medicion : se calcula a partir de
+@enduml

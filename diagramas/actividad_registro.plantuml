@@ -1,0 +1,16 @@
+@startuml
+|Paciente / Cuidador|
+start
+:Ingresar valores de glucosa en sangre;
+:Registrar ingesta de alimentos y cantidad de 
+carbohidratos, si corresponde;
+:Registrar dosis de insulina, si corresponde;
+|Sistema|
+:Verifica información ingresada;
+|Paciente / Cuidador|
+:Retorna feedback positivo o negativo para 
+confirmar los datos ingresados;
+|Sistema|
+:Registra los datos;
+stop
+@enduml

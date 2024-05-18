@@ -1,0 +1,33 @@
+@startuml
+|Usuario / Paciente|
+start
+:Identificar y autenticar al usuario;
+:Gestionar datos personales;
+|Sistema|
+if (¿Cuidadores por vincular?) then (sí)
+    :Enviar email a cuidadores;
+else (no)
+    :Continuar;
+endif
+|Cuidador|
+if (¿Nuevo usuario?) then (sí)
+    :Crear cuenta con información personal;
+else (no)
+    :Iniciar sesión;
+endif
+|Sistema|
+if (¿Médico por vincular?) then (sí)
+    :Enviar email a médico;
+else (no)
+    :Continuar;
+endif
+|Médico|
+if (¿Nuevo usuario?) then (sí)
+    :Crear cuenta con información personal;
+else (no)
+    :Iniciar sesión;
+endif
+|Usuario|
+:Gestionar permisos para usuarios vinculados;
+stop
+@enduml

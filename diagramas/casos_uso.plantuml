@@ -1,0 +1,45 @@
+@startuml
+left to right direction
+actor "Paciente" as Paciente
+actor "Médico" as Medico
+actor "Cuidador" as Cuidador
+package "Sistema GlucoForecast" {
+    usecase "CU01: Registrar Glucemia" as CU01
+    usecase "CU02: Registrar Insulina aplicada" as CU02
+    usecase "CU03: Registrar Ingesta de Carbohidratos" as CU03
+    usecase "CU04: Verificar Datos Ingresados" as CU04
+    usecase "CU05: Calcular Hb1Ac" as CU05
+    usecase "CU06: Comunicar Resultados al Médico" as CU06
+    usecase "CU07: Identificar desviaciones y áreas de mejora" as CU07
+    usecase "CU08: Revisión y Ajuste del Plan de Tratamiento" as CU08
+    usecase "CU09: Visualizar resultado de Hb1Ac" as CU09
+    usecase "CU10: Visualizar conteo de hiper/hipo-glucemias" as CU10
+    usecase "CU11: Generación de Reportes" as CU11
+    usecase "CU12: Visualizar tiempo en rango" as CU12
+    usecase "CU13: Calcular conteo de hiper/hipo-glucemia" as CU13
+    
+    Paciente -- (CU01)
+    Paciente -- (CU02)
+    Paciente -- (CU03)
+    Paciente -- (CU09)
+    Paciente -- (CU10)
+    Paciente -- (CU11)
+    Paciente -- (CU12)
+
+    Cuidador -- (CU09)
+    Cuidador -- (CU10)
+    Cuidador -- (CU12)
+
+    Medico -- (CU06)
+    Medico -- (CU07)
+    Medico -- (CU08)
+    
+    CU01 ..> CU04 : <<include>>
+    CU02 ..> CU04 : <<include>>
+    CU03 ..> CU04 : <<include>>
+    CU05 <.. CU06 : <<extend>>
+    CU05 <.. CU11 : <<extend>>
+    CU13 <.. CU06 : <<extend>>
+    CU13 <.. CU11 : <<extend>>
+}
+@enduml

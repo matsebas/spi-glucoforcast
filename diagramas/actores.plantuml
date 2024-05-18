@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+
+package "Sistema GlucoForecast" {
+
+  package "Actores" {
+    actor "Usuario" as usuario
+    actor "Paciente" as paciente
+    actor "Médico" as medico
+    actor "Cuidador" as cuidador
+
+    usuario <|-- paciente
+    usuario <|-- cuidador
+    usuario <|-- medico
+  }
+
+}
+@enduml
