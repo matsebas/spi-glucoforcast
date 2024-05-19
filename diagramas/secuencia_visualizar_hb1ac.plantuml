@@ -1,0 +1,18 @@
+@startuml
+actor Paciente as p
+boundary "Interfaz de Visualización de Datos" as vd
+control "Controlador de HbA1c" as ch
+entity "Entidad EstimacionGlicosilada" as eg
+
+p -> vd : Solicita ver resultado de HbA1c
+vd -> ch : Pide datos de HbA1c
+ch -> eg : Consulta estimación de HbA1c
+eg --> ch : Retorna datos de HbA1c
+ch --> vd : Envía resultado de HbA1c
+vd -> p : Muestra resultado de HbA1c
+
+alt No hay datos suficientes para cálculo
+    ch --> vd : Informa falta de datos
+    vd -> p : Muestra mensaje de no disponibilidad
+end
+@enduml

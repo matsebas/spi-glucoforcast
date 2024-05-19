@@ -1,0 +1,83 @@
+@startuml
+class Usuario {
+  -id: Long
+  -nombre: String
+  -apellido: String
+  -email: String
+  -telefono: String
+  +ingresarSistema(usuario: String, clave: String): Boolean
+}
+
+class Paciente {
+  -fechaNacimiento: Date
+  -pesoCorporal: Double
+  -fechaDiagnostico: Date
+  +registrarMedicion(medicion: Medicion): Boolean
+  +verReporte(tipoReporte: ReporteTipo): Reporte
+  +revisarHistorial(): List<Medicion>
+}
+
+class Cuidador {
+  +accederDatosPaciente(pacienteId: Long): Paciente
+  +registrarMedicion(pacienteId: Long, medicion: Medicion): Boolean
+  +revisarHistorial(pacienteId: Long): List<Medicion>
+}
+
+class Medico {
+  -institucion: String
+  +accederDatosPaciente(pacienteId: Long): Paciente
+  +revisarHistorial(pacienteId: Long): List<Medicion>
+}
+
+class Medicion {
+  -id: Long
+  -fechaHora: Date
+  -glucemia: Double
+  -carbohidratos: Double
+  -insulinaComida: Double
+  -insulinaCorreccion: Double
+  -descripcionComida: String
+  -insulinaLenta: Double
+  -notas: String
+  -tags: List<String>
+  +validarDatos(): Boolean
+}
+
+class EstimacionGlicosilada {
+  -id: Long
+  -valorCalculado: Double
+  -fechaCalculo: Date
+  +calcularEstimacion(mediciones: List<Medicion>): Double
+}
+
+class Reporte {
+  -tipoReporte: ReporteTipo
+  -datos: Blob
+  -fechaGeneracion: Date
+  +generar(tipoReporte: ReporteTipo): Blob
+  +listarTipoDeReportes(): List<ReporteTipo>
+}
+
+enum ReporteTipo {
+  TENDENCIAS_GLUCEMIA
+  PATRONES_GLUCEMIA
+  RANGOS_GLUCEMIA
+  PROMEDIOS_GLUCEMIA
+  HB1AC_HISTORICO
+  DOSIFICACION_INSULINA
+  CANTIDAD_CARBOHIDRATOS
+  NOTAS_OBSERVACIONES
+}
+
+Usuario <|-- Paciente
+Usuario <|-- Cuidador
+Usuario <|-- Medico
+Paciente "1" *-- "0..*" Medicion : realiza
+Paciente "1" *-- "0..*" EstimacionGlicosilada : tiene
+Paciente "1" *-- "0..*" Reporte : genera
+Cuidador "0..*" o-- "1..*" Paciente : cuida
+Medico "1" o-- "0..*" Paciente : atiende a
+Medicion "1" *-- "1" EstimacionGlicosilada : contribuye a
+Reporte "0..*" -- "1" ReporteTipo : tipo
+
+@enduml

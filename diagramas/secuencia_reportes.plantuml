@@ -1,0 +1,61 @@
+@startuml
+actor "Paciente / Cuidador" as p
+boundary "Interfaz de Reportes" as fr
+control "Controlador de Reportes" as cr
+entity "Entidad Medición" as rm
+entity "Entidad Estimación Glicosilada" as eg
+entity "Entidad Reporte" as rep
+
+p -> fr : Solicita listado de reportes
+fr -> cr : Consulta tipos de reportes disponibles
+cr -> rep : Recupera listado de reportes
+rep --> cr : Devuelve listado
+cr --> fr : Muestra listado de reportes
+p -> fr : Selecciona tipo de reporte
+fr -> cr : Solicita generación de reporte seleccionado
+cr -> rep : Solicita datos para el reporte seleccionado
+
+alt Reporte de Tendencias de Glucemia
+    rep -> rm : Consulta datos de glucemia
+    rm --> rep : Devuelve datos de glucemia
+    rep -> rep : Procesa tendencias de glucemia
+    rep --> cr : Devuelve reporte procesado
+else Reporte de Patrones de Glucemia
+    rep -> rm : Consulta datos de glucemia
+    rm --> rep : Devuelve datos de glucemia
+    rep -> rep : Identifica patrones de glucemia
+    rep --> cr : Devuelve reporte procesado
+else Reporte de Rangos de Glucemia
+    rep -> rm : Consulta datos de glucemia
+    rm --> rep : Devuelve datos de glucemia
+    rep -> rep : Calcula rangos de glucemia
+    rep --> cr : Devuelve reporte procesado
+else Reporte de Promedios de Glucemia
+    rep -> rm : Consulta datos de glucemia
+    rm --> rep : Devuelve datos de glucemia
+    rep -> rep : Calcula promedios de glucemia
+    rep --> cr : Devuelve reporte procesado
+else Reporte de Hb1Ac Histórica
+    rep -> eg : Consulta estimaciones HbA1c
+    eg --> rep : Devuelve estimaciones HbA1c
+    rep -> rep : Procesa historia de HbA1c
+    rep --> cr : Devuelve reporte procesado
+else Reporte de Mediciones de Insulina
+    rep -> rm : Consulta datos de insulina
+    rm --> rep : Devuelve datos de insulina
+    rep -> rep : Procesa mediciones de insulina
+    rep --> cr : Devuelve reporte procesado
+else Reporte de Cantidad de Carbohidratos
+    rep -> rm : Consulta datos de carbohidratos
+    rm --> rep : Devuelve datos de carbohidratos
+    rep -> rep : Calcula consumo de carbohidratos
+    rep --> cr : Devuelve reporte procesado
+else Reporte de Notas y Observaciones
+    rep -> rm : Consulta notas y observaciones
+    rm --> rep : Devuelve notas y observaciones
+    rep -> rep : Compila notas y observaciones
+    rep --> cr : Devuelve reporte procesado
+end
+
+cr -> fr : Muestra reporte procesado
+@enduml

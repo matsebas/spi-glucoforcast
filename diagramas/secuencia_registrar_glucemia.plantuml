@@ -3,25 +3,36 @@ actor Paciente as p
 boundary "Interfaz de Registro de datos" as fg
 control "Controlador de Mediciones" as cg
 entity "Entidad Medición" as rg
+control "Controlador de HbA1c" as hc
+entity "Entidad Estimación Glicosilada" as eg
 
-p -> fg : Ingresa datos
+p -> fg : Ingresa datos de glucosa
 fg -> fg : Solicita confirmación de entrada de datos
-fg -> cg : Envía datos de medición
-cg -> cg : Verifica rango de glucemia
-
+fg -> cg : Envía datos de glucosa
+cg -> cg : Verifica rango de glucosa
 alt Datos válidos
     cg -> rg : Guarda medición
     rg --> cg : Confirmación de almacenamiento
+    cg --> hc : Calcula HbA1c
+    hc -> rg : Recupera datos recientes
+    hc -> hc : Aplica algoritmo de cálculo HbA1c
+    hc -> eg : Guarda estimación HbA1c
+    eg --> hc : Confirmación de almacenamiento
     cg --> fg : Muestra mensaje de éxito
 else Datos inválidos o fuera de rango
     cg --> fg : Muestra mensaje de error
     loop Datos incorrectos
-        p -> fg : Corrige y reingresa datos de glucemia
+        p -> fg : Corrige y reingresa datos de glucosa
         fg -> cg : Reenvía datos corregidos
-        cg -> cg : Verifica rango de glucemia
+        cg -> cg : Verifica rango de glucosa
     end
-    cg -> rg : Guarda medición
+    cg -> rg : Guarda medición corregida
     rg --> cg : Confirmación de almacenamiento
+    cg --> hc : Calcula HbA1c
+    hc -> rg : Recupera datos recientes
+    hc -> hc : Aplica algoritmo de cálculo HbA1c
+    hc -> eg : Guarda estimación HbA1c
+    eg --> hc : Confirmación de almacenamiento
     cg --> fg : Muestra mensaje de éxito
 end
 @enduml
