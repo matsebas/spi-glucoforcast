@@ -1,0 +1,29 @@
+@startuml
+:Usuario: as u
+
+node "Dispositivo\nCliente" as dc {
+   [Navegador Web] as nw
+}
+
+node "Servidor\nWeb" as sw {
+component "Apache Tomcat" as at {
+      [Aplicación Web] as aw
+}   
+}
+
+node "Servidor de\nAplicación" as sa {
+        [Controlador\nde Reportes] as cr
+        [Controlador\nde Mediciones] as cm
+        [Controlador\nde HbA1c] as ch
+        [Módulo de\nAutenticatión\ny Autorización] as ca
+}
+
+node "Servidor de\nBase de Datos (MySQL)" as sbd {
+    database "Base de Datos\nGlucoforecast" as bdg
+}
+
+u . nw
+nw -- at : HTTP
+aw -- sa : HTTP
+sa - bdg : JDBC
+@enduml
