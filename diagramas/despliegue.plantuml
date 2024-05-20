@@ -22,7 +22,7 @@ node "Servidor de\nBase de Datos (MySQL)" as sbd {
     database "Base de Datos\nGlucoforecast" as bdg
 }
 
-u . nw
+u ~ nw
 nw -- at : HTTP
 aw -- sa : HTTP
 sa - bdg : JDBC
